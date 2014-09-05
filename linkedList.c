@@ -74,13 +74,17 @@ void reverse(struct List *list) {
     list->head = prev;
 }
 
+// need to free memory
 struct Node *delete(struct List *list, int d) {
     struct Node *current = list->head;
 
     // head is value to delete
     // need new head
     if (current->val == d) {
+        struct Node *temp = list->head;
         list->head = current->next;
+
+        free(temp);
         return (list->head);
     }
 
@@ -88,6 +92,7 @@ struct Node *delete(struct List *list, int d) {
         struct Node *next = current->next;
         if (next->val == d) {
             current->next = next->next;
+            free(next);
             return (list->head);
         }
 
