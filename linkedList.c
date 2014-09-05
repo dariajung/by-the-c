@@ -74,8 +74,27 @@ void reverse(struct List *list) {
     list->head = prev;
 }
 
-void delete(struct List *list, int d) {
-    
+struct Node *delete(struct List *list, int d) {
+    struct Node *current = list->head;
+
+    // head is value to delete
+    // need new head
+    if (current->val == d) {
+        list->head = current->next;
+        return (list->head);
+    }
+
+    while (current->next != NULL) {
+        struct Node *next = current->next;
+        if (next->val == d) {
+            current->next = next->next;
+            return (list->head);
+        }
+
+        current = current->next;
+    }
+
+    return NULL;
 }
 
 // init empty list
@@ -100,6 +119,8 @@ int main() {
     }
 
     pushTail(&list, 21);
+
+    delete(&list, 21);
 
     reverse(&list);
 
